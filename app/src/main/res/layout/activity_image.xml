@@ -34,4 +34,22 @@
         app:layout_constraintHorizontal_bias="0.503"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/buttonDog"
+        android:layout_width="98dp"
+        android:layout_height="111dp"
+        android:text="Dog"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="365dp" />
+
+    <Button
+        android:id="@+id/buttonMuffin"
+        android:layout_width="98dp"
+        android:layout_height="111dp"
+        android:text="Muffin"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="270dp"
+        tools:layout_editor_absoluteY="365dp" />
 </android.support.constraint.ConstraintLayout>
