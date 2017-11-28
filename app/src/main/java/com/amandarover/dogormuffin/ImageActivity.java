@@ -22,10 +22,12 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             case R.id.buttonDog:
                 Intent readyActivity = new Intent(this, ReadyActivity.class);
                 startActivity(readyActivity);
+                    finish();
                 break;
             case R.id.buttonMuffin:
                 Intent highScoreActivity = new Intent(this, HighScoresActivity.class);
                 startActivity(highScoreActivity);
+                    finish();
                 break;
         }
     }

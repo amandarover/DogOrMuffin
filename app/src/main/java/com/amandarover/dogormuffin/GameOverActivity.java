@@ -23,14 +23,17 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
             case R.id.buttonPlayAgain:
                 Intent readyActivity = new Intent(this, ReadyActivity.class);
                 startActivity(readyActivity);
+                finish();
                 break;
             case R.id.buttonHighScores:
                 Intent highScoreActivity = new Intent(this, HighScoresActivity.class);
                 startActivity(highScoreActivity);
+                finish();
                 break;
             case R.id.buttonBackToMenu:
                 Intent startActivity = new Intent(this, StartActivity.class);
                 startActivity(startActivity);
+                finish();
         }
     }
 }

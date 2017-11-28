@@ -21,6 +21,7 @@ public class HighScoresActivity extends AppCompatActivity implements View.OnClic
             case R.id.buttonBack:
                 Intent startActivity = new Intent(this, StartActivity.class);
                 startActivity(startActivity);
+                finish();
                 break;
         }
     }

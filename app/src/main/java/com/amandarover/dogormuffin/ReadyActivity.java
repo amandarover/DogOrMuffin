@@ -17,5 +17,6 @@ public class ReadyActivity extends AppCompatActivity {
     public void startGame(View view) {
         Intent intent = new Intent(this, ImageActivity.class);
         startActivity(intent);
+        finish();
     }
 }

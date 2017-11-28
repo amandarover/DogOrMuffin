@@ -22,10 +22,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.buttonStart:
                 Intent readyActivity = new Intent(this, ReadyActivity.class);
                 startActivity(readyActivity);
+                finish();
                 break;
             case R.id.buttonHighScores:
                 Intent highScoreActivity = new Intent(this, HighScoresActivity.class);
                 startActivity(highScoreActivity);
+                finish();
                 break;
         }
     }
