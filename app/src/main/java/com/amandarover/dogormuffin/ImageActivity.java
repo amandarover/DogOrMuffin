@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class ImageActivity extends AppCompatActivity implements View.OnClickListener{
+    int score = 0;
     ImageView imageGeneric;
 
     @Override
@@ -27,6 +28,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             case R.id.buttonDog:
                 if (choosed == ImageType.DOG) {
                     renderNextImage();
+                    incrementScore();
                 } else {
                     Intent gameOverIntent = new Intent(this, GameOverActivity.class);
                     gameOverIntent.putExtra("points", score);
@@ -37,6 +39,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             case R.id.buttonMuffin:
                 if (choosed == ImageType.MUFFIN) {
                     renderNextImage();
+                    incrementScore();
                 } else {
                     Intent gameOverIntent = new Intent(this, GameOverActivity.class);
                     gameOverIntent.putExtra("points", score);
@@ -66,5 +69,9 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             choosed = ImageType.MUFFIN;
             return muffinImages[(int)(Math.random()*muffinImages.length)];
         }
+    }
+
+    private void incrementScore() {
+        score++;
     }
 }
