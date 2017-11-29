@@ -1,5 +1,6 @@
 *.iml
 */*.iml
+.gradel
 /local.properties
 /.idea/
 .DS_Store
