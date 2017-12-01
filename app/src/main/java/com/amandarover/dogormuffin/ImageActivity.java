@@ -20,11 +20,11 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
-        initAllComponents();
+        initImageActivityComponents();
         renderNextImage();
     }
 
-    private void initAllComponents() {
+    private void initImageActivityComponents() {
         imageGeneric = findViewById(R.id.imageGeneric);
         findViewById(R.id.buttonDog).setOnClickListener(this);
         findViewById(R.id.buttonMuffin).setOnClickListener(this);
