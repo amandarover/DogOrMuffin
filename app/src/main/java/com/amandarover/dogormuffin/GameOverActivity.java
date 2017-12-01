@@ -21,13 +21,10 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
 
         Score score = getScoreFromActivity();
 
-        TextView finalScore = findViewById(R.id.textViewScore);
-        finalScore.setText("Your Score: " + score.points);
         ScoreDao scoreDao = AppDatabase.getInstance(this).scoreDao();
         scoreDao.insert(score);
 
-        TextView highScore = findViewById(R.id.textViewHighScore);
-        highScore.setText("High Score: " + dao.fetchHighest().points);
+        showScoreOnTextView(score, scoreDao);
     }
 
     private void initImageActivityComponents() {
@@ -39,6 +36,14 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
     private Score getScoreFromActivity(){
         Score score = (Score) getIntent().getSerializableExtra("score");
         return score;
+    }
+
+    private void showScoreOnTextView(Score score, ScoreDao scoreDao) {
+        TextView finalScore = findViewById(R.id.textViewScore);
+        finalScore.setText("Your Score: " + score.points);
+
+        TextView highScore = findViewById(R.id.textViewHighScore);
+        highScore.setText("High Score: " + scoreDao.fetchHighest().points);
     }
 
     @Override
