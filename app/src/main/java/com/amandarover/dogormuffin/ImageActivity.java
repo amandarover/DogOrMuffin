@@ -14,7 +14,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     enum ImageType {
         DOG, MUFFIN
     }
-    ImageType choosed;
+    ImageType currentImageType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,29 +34,23 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        ImageType choosedButton = null;
         switch (view.getId()) {
             case R.id.buttonDog:
-                if (choosed == ImageType.DOG) {
-                    renderNextImage();
-                    incrementScore();
-                } else {
-                    Intent gameOverIntent = new Intent(this, GameOverActivity.class);
-                    gameOverIntent.putExtra("points", score);
-                    startActivity(gameOverIntent);
-                    finish();
-                }
+                choosedButton = ImageType.DOG;
                 break;
             case R.id.buttonMuffin:
-                if (choosed == ImageType.MUFFIN) {
-                    renderNextImage();
-                    incrementScore();
-                } else {
-                    Intent gameOverIntent = new Intent(this, GameOverActivity.class);
-                    gameOverIntent.putExtra("points", score);
-                    startActivity(gameOverIntent);
-                    finish();
-                }
+                choosedButton = ImageType.MUFFIN;
                 break;
+        }
+        if (currentImageType == choosedButton) {
+            renderNextImage();
+            incrementScore();
+        } else {
+            Intent gameOverIntent = new Intent(this, GameOverActivity.class);
+            gameOverIntent.putExtra("points", score);
+            startActivity(gameOverIntent);
+            finish();
         }
     }
 
@@ -66,10 +60,10 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
     private int getNextRandomImageRes() {
         if (Math.random()*2 > 1) {
-            choosed = ImageType.DOG;
+            currentImageType = ImageType.DOG;
             return dogImages[(int)(Math.random()*dogImages.length)];
         } else {
-            choosed = ImageType.MUFFIN;
+            currentImageType = ImageType.MUFFIN;
             return muffinImages[(int)(Math.random()*muffinImages.length)];
         }
     }
