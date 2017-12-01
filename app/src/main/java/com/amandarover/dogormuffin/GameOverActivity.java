@@ -17,6 +17,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
 
+        initImageActivityComponents();
 
         AppDatabase db = AppDatabase.getInstance(this);
         ScoreDao dao = db.scoreDao();
@@ -28,7 +29,9 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
 
         TextView highScore = findViewById(R.id.textViewHighScore);
         highScore.setText("High Score: " + dao.fetchHighest().points);
+    }
 
+    private void initImageActivityComponents() {
         findViewById(R.id.buttonPlayAgain).setOnClickListener(this);
         findViewById(R.id.buttonHighScores).setOnClickListener(this);
         findViewById(R.id.buttonBackToMenu).setOnClickListener(this);
