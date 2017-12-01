@@ -1,7 +1,6 @@
 package com.amandarover.dogormuffin;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +17,11 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
 
-        Score score = new Score();
-        score.points = getIntent().getIntExtra("points", 0);
 
         AppDatabase db = AppDatabase.getInstance(this);
         ScoreDao dao = db.scoreDao();
         dao.insert(score);
+        Score score = getScoreFromActivity();
 
         TextView finalScore = findViewById(R.id.textViewScore);
         finalScore.setText("Your Score: " + score.points);
@@ -34,6 +32,11 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.buttonPlayAgain).setOnClickListener(this);
         findViewById(R.id.buttonHighScores).setOnClickListener(this);
         findViewById(R.id.buttonBackToMenu).setOnClickListener(this);
+    }
+
+    private Score getScoreFromActivity(){
+        Score score = (Score) getIntent().getSerializableExtra("score");
+        return score;
     }
 
     @Override

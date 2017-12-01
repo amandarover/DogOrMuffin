@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.amandarover.dogormuffin.data.Score;
+
 public class ImageActivity extends AppCompatActivity implements View.OnClickListener{
-    int score = 0;
+    Score score;
     ImageView imageGeneric;
     int [] dogImages;
     int [] muffinImages;
@@ -25,6 +27,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initImageActivityComponents() {
+        score = new Score();
         imageGeneric = findViewById(R.id.imageGeneric);
         findViewById(R.id.buttonDog).setOnClickListener(this);
         findViewById(R.id.buttonMuffin).setOnClickListener(this);
@@ -40,7 +43,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             incrementScore();
         } else {
             Intent gameOverIntent = new Intent(this, GameOverActivity.class);
-            gameOverIntent.putExtra("points", score);
+            gameOverIntent.putExtra("score", score);
             startActivity(gameOverIntent);
             finish();
         }
@@ -70,6 +73,6 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void incrementScore() {
-        score++;
+        score.points++;
     }
 }
