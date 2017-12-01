@@ -20,11 +20,11 @@ public class HighScoresActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_high_scores);
 
         findViewById(R.id.buttonBack).setOnClickListener(this);
-        ListView highScoreListView = findViewById(R.id.listViewHigsScores);
 
-        AppDatabase db = AppDatabase.getInstance(this);
-        ScoreDao dao = db.scoreDao();
-        List<Score> highScoreList = dao.fetchAll();
+        ScoreDao scoreDao = AppDatabase.getInstance(this).scoreDao();
+        List<Score> highScoreList = scoreDao.fetchAll();
+
+        ListView highScoreListView = findViewById(R.id.listViewHigsScores);
 
         ArrayAdapter<Score> highScoreAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, highScoreList);
         highScoreListView.setAdapter(highScoreAdapter);
