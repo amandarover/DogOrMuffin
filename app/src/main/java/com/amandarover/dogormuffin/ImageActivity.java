@@ -54,8 +54,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         imageGeneric.setImageResource(getNextRandomImageRes());
     }
 
-    int [] dogImages = new int[]{R.drawable.dog1, R.drawable.dog2};
-    int [] muffinImages = new int[]{R.drawable.muffin1, R.drawable.muffin2};
+    int [] dogImages = new int[]{R.drawable.dog1, R.drawable.dog2, R.drawable.dog3, R.drawable.dog4, R.drawable.dog5, R.drawable.dog6, R.drawable.dog7};
+    int [] muffinImages = new int[]{R.drawable.muffin1, R.drawable.muffin2, R.drawable.muffin3, R.drawable.muffin4, R.drawable.muffin5, R.drawable.muffin6, R.drawable.muffin7};
     enum ImageType {
         DOG, MUFFIN
     }
