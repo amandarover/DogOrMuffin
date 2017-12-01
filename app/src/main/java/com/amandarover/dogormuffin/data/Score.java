@@ -8,4 +8,8 @@ public class Score {
     @PrimaryKey(autoGenerate = true)
     public long id;
     public int points;
+
+    public String toString() {
+        return "Pontos: " + points;
+    }
 }
