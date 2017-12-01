@@ -33,16 +33,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View view) {
-        ImageType choosedButton = null;
-        switch (view.getId()) {
-            case R.id.buttonDog:
-                choosedButton = ImageType.DOG;
-                break;
-            case R.id.buttonMuffin:
-                choosedButton = ImageType.MUFFIN;
-                break;
-        }
+    public void onClick(View buttonView) {
+        ImageType choosedButton = whichButtonClicked(buttonView);
         if (currentImageType == choosedButton) {
             renderNextImage();
             incrementScore();
@@ -52,6 +44,15 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             startActivity(gameOverIntent);
             finish();
         }
+    }
+
+    public ImageType whichButtonClicked(View buttonView) {
+        if (buttonView.getId() == R.id.buttonDog) {
+            return ImageType.DOG;
+        } else if (buttonView.getId() == R.id.buttonMuffin) {
+            return ImageType.MUFFIN;
+        }
+        return null;
     }
 
     private void renderNextImage() {
