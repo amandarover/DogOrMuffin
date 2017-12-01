@@ -19,13 +19,12 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
 
         initImageActivityComponents();
 
-        AppDatabase db = AppDatabase.getInstance(this);
-        ScoreDao dao = db.scoreDao();
-        dao.insert(score);
         Score score = getScoreFromActivity();
 
         TextView finalScore = findViewById(R.id.textViewScore);
         finalScore.setText("Your Score: " + score.points);
+        ScoreDao scoreDao = AppDatabase.getInstance(this).scoreDao();
+        scoreDao.insert(score);
 
         TextView highScore = findViewById(R.id.textViewHighScore);
         highScore.setText("High Score: " + dao.fetchHighest().points);
