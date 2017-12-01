@@ -47,8 +47,8 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View clickedButtonView) {
+        switch (clickedButtonView.getId()) {
             case R.id.buttonPlayAgain:
                 Intent readyActivity = new Intent(this, ReadyActivity.class);
                 startActivity(readyActivity);
