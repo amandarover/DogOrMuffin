@@ -1,16 +1,23 @@
 package com.amandarover.dogormuffin;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amandarover.dogormuffin.data.Score;
+
+import java.util.Locale;
 
 public class ImageActivity extends AppCompatActivity implements View.OnClickListener{
     Score score;
     ImageView imageGeneric;
+    TextView textViewRuningTime;
+    Intent gameOverIntent;
+    CountDownTimer countDown;
     int [] dogImages;
     int [] muffinImages;
     enum ImageType {
@@ -24,6 +31,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_image);
         initImageActivityComponents();
         renderNextImage();
+        ImageActivity contextActivity = this;
+        setupCountDown();
     }
 
     private void initImageActivityComponents() {
@@ -31,25 +40,28 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         imageGeneric = findViewById(R.id.imageGeneric);
         findViewById(R.id.buttonDog).setOnClickListener(this);
         findViewById(R.id.buttonMuffin).setOnClickListener(this);
-        dogImages = new int[]{R.drawable.dog1, R.drawable.dog2, R.drawable.dog3, R.drawable.dog4, R.drawable.dog5, R.drawable.dog6, R.drawable.dog7};
-        muffinImages = new int[]{R.drawable.muffin1, R.drawable.muffin2, R.drawable.muffin3, R.drawable.muffin4, R.drawable.muffin5, R.drawable.muffin6, R.drawable.muffin7};
+        dogImages = new int[]{R.drawable.dog1, R.drawable.dog2, R.drawable.dog3, R.drawable.dog4,
+                R.drawable.dog5, R.drawable.dog6, R.drawable.dog7};
+        muffinImages = new int[]{R.drawable.muffin1, R.drawable.muffin2, R.drawable.muffin3,
+                R.drawable.muffin4, R.drawable.muffin5, R.drawable.muffin6, R.drawable.muffin7};
+        textViewRuningTime = findViewById(R.id.textViewRuningTime);
+        gameOverIntent = new Intent(this, GameOverActivity.class);
     }
 
     @Override
     public void onClick(View buttonView) {
         ImageType choosedButton = whichButtonClicked(buttonView);
         if (currentImageType == choosedButton) {
-            renderNextImage();
+            setupCountDown();
             incrementScore();
+            renderNextImage();
         } else {
-            Intent gameOverIntent = new Intent(this, GameOverActivity.class);
-            gameOverIntent.putExtra("score", score);
-            startActivity(gameOverIntent);
-            finish();
+            cancelCountDown();
+            sendScoreToGameOverActivity();
         }
     }
 
-    public ImageType whichButtonClicked(View buttonView) {
+    private ImageType whichButtonClicked(View buttonView) {
         if (buttonView.getId() == R.id.buttonDog) {
             return ImageType.DOG;
         } else if (buttonView.getId() == R.id.buttonMuffin) {
@@ -72,7 +84,29 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private void sendScoreToGameOverActivity () {
+        gameOverIntent.putExtra("score", score);
+        startActivity(gameOverIntent);
+        finish();
+    }
+
     private void incrementScore() {
         score.points++;
+    }
+
+    private void setupCountDown() {
+        cancelCountDown();
+        countDown = new CountDownTimer(10000, 10) {
+            public void onTick(long millisUntilFinished) {
+                textViewRuningTime.setText(String.format(Locale.US,"Time left: %.2f", millisUntilFinished / 1000.0));
+            }
+            public void onFinish() {
+                sendScoreToGameOverActivity();
+            }
+        }.start();
+    }
+
+    private void cancelCountDown() {
+        if (countDown != null) { countDown.cancel(); }
     }
 }
