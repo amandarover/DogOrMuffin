@@ -19,7 +19,7 @@
         <activity android:name=".ReadyActivity" />
         <activity android:name=".ImageActivity" />
         <activity android:name=".GameOverActivity" />
-        <activity android:name=".HighScoresActivity"></activity>
+        <activity android:name=".HighScoresActivity" />
     </application>
 
 </manifest>
