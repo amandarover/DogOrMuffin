@@ -10,8 +10,9 @@ public class Score implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public long id;
     public int points = 0;
+    public String userName;
 
     public String toString() {
-        return "Pontos: " + points;
+        return userName + "\t" + points;
     }
 }

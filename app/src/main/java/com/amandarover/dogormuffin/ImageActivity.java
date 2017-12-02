@@ -1,10 +1,14 @@
 package com.amandarover.dogormuffin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,7 +61,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             renderNextImage();
         } else {
             cancelCountDown();
-            sendScoreToGameOverActivity();
+            showInputNameDialog();
         }
     }
 
@@ -84,29 +88,54 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void sendScoreToGameOverActivity () {
-        gameOverIntent.putExtra("score", score);
-        startActivity(gameOverIntent);
-        finish();
-    }
-
     private void incrementScore() {
         score.points++;
     }
 
     private void setupCountDown() {
         cancelCountDown();
-        countDown = new CountDownTimer(10000, 10) {
+        countDown = new CountDownTimer(5000, 10) {
             public void onTick(long millisUntilFinished) {
                 textViewRuningTime.setText(String.format(Locale.US,"Time left: %.2f", millisUntilFinished / 1000.0));
             }
             public void onFinish() {
-                sendScoreToGameOverActivity();
+                showInputNameDialog();
             }
         }.start();
     }
 
     private void cancelCountDown() {
         if (countDown != null) { countDown.cancel(); }
+    }
+
+    private void showInputNameDialog() {
+        showInputNameDialog(false);
+    }
+
+    private void showInputNameDialog(boolean showWarning) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.input_name_dialog, null);
+        if (showWarning) {
+            TextView warningText = dialogView.findViewById(R.id.warningInput);
+            warningText.setText("Insert your name");
+        }
+        builder.setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText username = dialogView.findViewById(R.id.username);
+                        if (username.getText().toString().trim().equals("")) {
+                            showInputNameDialog(true);
+                        } else {
+                            score.userName = username.getText().toString().trim();
+                            gameOverIntent.putExtra("score", score);
+                            startActivity(gameOverIntent);
+                            finish();
+                        }
+                    }
+                });
+        builder.create().show();
     }
 }

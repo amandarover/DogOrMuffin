@@ -40,10 +40,11 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
 
     private void showScoreOnTextView(Score score, ScoreDao scoreDao) {
         TextView finalScore = findViewById(R.id.textViewScore);
-        finalScore.setText("Your Score: " + score.points);
+        finalScore.setText("Your Score: " + score.userName + " " + score.points);
 
         TextView highScore = findViewById(R.id.textViewHighScore);
-        highScore.setText("High Score: " + scoreDao.fetchHighest().points);
+        Score highScoreSaved = scoreDao.fetchHighest();
+        highScore.setText("High Score: " + highScoreSaved.userName + " " + highScoreSaved.points);
     }
 
     @Override
